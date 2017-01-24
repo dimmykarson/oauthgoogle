@@ -1,0 +1,43 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<script src="https://apis.google.com/js/platform.js" async='async'
+		defer='defer'></script>
+	<meta name="google-signin-client_id"
+		content="1036345992448-fbst8cf1gs1bh1jjm5gki4qk2c3n02sc.apps.googleusercontent.com" />
+	<script type="text/javascript">
+		function onSignIn(googleUser) {
+			  var profile = googleUser.getBasicProfile();
+			  var user = profile.getEmail();
+			  console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+			  console.log('Name: ' + profile.getName());
+			  console.log('Image URL: ' + profile.getImageUrl());
+			  console.log('Email: ' + profile.getEmail());
+			  login([{name:'usuario', value:user}]);
+			}
+		function signOut() {
+		    var auth2 = gapi.auth2.getAuthInstance();
+		    auth2.signOut().then(function () {
+		      console.log('User signed out.');
+		    });
+		    login([{name:'usuario', value:null}]);
+		  }
+	</script>
+</h:head>
+<body>
+	<h:form>
+
+		<div class="g-signin2" data-onsuccess="onSignIn"></div>
+
+		<p:remoteCommand name="login" actionListener="#{loginMB.login}"
+			style="display: none;">
+		</p:remoteCommand>
+
+	</h:form>
+</body>
+</html>
